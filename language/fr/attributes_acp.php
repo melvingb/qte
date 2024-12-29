@@ -48,9 +48,6 @@ $lang = array_merge($lang, array(
 	'QTE_COPY_AUTHS' => 'Copier les permissions depuis',
 	'QTE_COPY_AUTHS_EXPLAIN' => 'Si vous choisissez de copier les permissions, l’attribut aura les mêmes permissions que celles sélectionnées ici. Elles remplaceront toutes les permissions précédemment définies pour cet attribut, par les permissions de l’attribut sélectionné. Si l’option <strong>Personnalisée</strong> est sélectionnée, les permissions actuelles seront conservées.',
 
-	'QTE_PERMISSIONS' => 'Permissions de l’attribut',
-	'QTE_ALLOWED_FORUMS' => 'Forums autorisés',
-	'QTE_ALLOWED_FORUMS_EXPLAIN' => 'Forums dont les groupes autorisés peuvent utiliser cet attribut.<br />Sélectionnez plusieurs forums en maintenant la touche <samp>CTRL</samp> ou la touche <samp>COMMAND</samp> et en cliquant.',
 	'QTE_ALLOWED_GROUPS' => 'Groupes autorisés',
 	'QTE_ALLOWED_GROUPS_EXPLAIN' => 'Groupes autorisés à utiliser cet attribut.<br />Sélectionnez plusieurs groupes en maintenant la touche <samp>CTRL</samp> ou la touche <samp>COMMAND</samp> et en cliquant.',
 	'QTE_ALLOWED_AUTHOR' => 'Autoriser l’auteur du sujet à utiliser cet attribut dans les forums sélectionnés',
@@ -83,9 +80,6 @@ $lang = array_merge($lang, array(
 	'QTE_REMOVED' => 'L’attribut sélectionné a été supprimé.',
 
 	'QTE_MIGRATIONS_OUTDATED' => 'Votre base de données n’est pas à jour.<br />Désactivez et réactivez l’extension afin de la mettre à jour.<br /><br />Version de la base de données : %1$s<br />Version des fichiers : %2$s',
-	'QTE_DEV_WARNING' => 'Vous utilisez actuellement une version de développement de l’extension (%s).<br />Vous ne devriez pas utiliser ces versions sur un forum en production.<br />Ces versions peuvent contenir des fonctionnalités non-terminées et des failles de sécurité ou encore rendre votre forum instable voire inutilisable.',
-	'QTE_DEV_WARNING_DEV' => 'Nous ne saurions être tenus pour responsables d’éventuelles pertes ou corruptions de données.',
-	'QTE_BETA_WARNING' => 'Vous utilisez actuellement une version non-stable de l’extension (%s).<br />Les versions non-stables sont susceptibles de comporter des erreurs, des failles de sécurité ou rendre instable votre forum.<br />Il est donc fortement recommandé de ne pas utiliser ces versions sur un forum en production.',
 ));
 
 // forums
@@ -94,8 +88,6 @@ $lang = array_merge($lang, array(
 
 	'QTE_DEFAULT_ATTR' => 'Attribut par défaut du forum',
 	'QTE_DEFAULT_ATTR_EXPLAIN' => 'L’attribut sélectionné sera appliqué à la création d’un sujet, quel que soient les permissions de l’utilisateur.',
-	'QTE_HIDE_ATTR' => 'Masquer l’option de suppression',
-	'QTE_HIDE_ATTR_EXPLAIN' => 'Les groupes sélectionnés ne pourront pas accéder à l’option de suppression.',
 	'QTE_FORCE_USERS' => 'Forcer les utilisateurs à appliquer un attribut à leur sujet',
 	'QTE_FORCE_USERS_EXPLAIN' => 'Si activée, les utilisateurs devront sélectionner un attribut pour leur sujet dans ce forum.',
 ));

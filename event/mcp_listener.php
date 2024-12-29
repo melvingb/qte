@@ -19,35 +19,27 @@ class mcp_listener implements EventSubscriberInterface
 	/** @var \phpbb\request\request */
 	protected $request;
 
-	/** @var \phpbb\db\driver\driver_interface */
-	protected $db;
-
-	/** @var \phpbb\template\template */
-	protected $template;
-
-	/** @var \phpbb\user */
-	protected $user;
-
-	/** @var \phpbb\log\log */
-	protected $log;
-
 	/** @var \ernadoo\qte\qte */
 	protected $qte;
 
-	public function __construct(\phpbb\request\request $request, \phpbb\db\driver\driver_interface $db, \phpbb\template\template $template, \phpbb\user $user, \phpbb\log\log $log, \ernadoo\qte\qte $qte)
+	/**
+	* Constructor
+	*
+	* @param \phpbb\request\request					$request			Request object
+	* @param \ernadoo\qte\qte						$qte				QTE object
+	*/
+	public function __construct(\phpbb\request\request $request, \ernadoo\qte\qte $qte)
 	{
-		$this->request = $request;
-		$this->db = $db;
-		$this->template = $template;
-		$this->user = $user;
-		$this->log = $log;
-		$this->qte = $qte;
+		$this->request	= $request;
+		$this->qte		= $qte;
 	}
 
 	static public function getSubscribedEvents()
 	{
 		return array(
 			// MCP
+			'core.mcp_main_modify_fork_sql'			=> 'mcp_main_modify_fork_sql',
+			'core.mcp_main_modify_shadow_sql'		=> 'mcp_main_modify_shadow_sql',
 			'core.mcp_view_forum_modify_topicrow'	=> 'assign_topic_attributes_mcp',
 			'core.mcp_forum_view_before'			=> 'mcp_select_assign_attributes',
 		);
@@ -64,15 +56,38 @@ class mcp_listener implements EventSubscriberInterface
 		}
 	}
 
+	public function mcp_main_modify_fork_sql($event)
+	{
+		$sql_ary = $event['sql_ary'];
+
+		$sql_ary['topic_attr_id']	= $event['topic_row']['topic_attr_id'];
+		$sql_ary['topic_attr_user'] = $event['topic_row']['topic_attr_user'];
+		$sql_ary['topic_attr_time'] = $event['topic_row']['topic_attr_time'];
+
+		$event['sql_ary'] = $sql_ary;
+	}
+
+	public function mcp_main_modify_shadow_sql($event)
+	{
+		$shadow = $event['shadow'];
+
+		$shadow['topic_attr_id']	= $event['row']['topic_attr_id'];
+		$shadow['topic_attr_user']	= $event['row']['topic_attr_user'];
+		$shadow['topic_attr_time']	= $event['row']['topic_attr_time'];
+
+		$event['shadow'] = $shadow;
+	}
+
 	public function mcp_select_assign_attributes($event)
 	{
-		$attr_id = (int) $this->request->variable('attr_id', 0);
+		$attr_id	= (int) $this->request->variable('attr_id', 0);
+		$forum_id	= (int) $event['forum_info']['forum_id'];
 
 		if ($attr_id)
 		{
-			$this->qte->mcp_attr_apply($attr_id, $event['topic_id_list']);
+			$this->qte->mcp_attr_apply($attr_id, $forum_id, $event['topic_id_list']);
 		}
 
-		$this->qte->attr_select($event['forum_info']['forum_id'], $this->user->data['user_id'], 0, (array) unserialize(trim($event['forum_info']['hide_attr'])));
+		$this->qte->attr_select($forum_id);
 	}
 }
